@@ -38,11 +38,11 @@ public class DonationGoalCategoryMenu extends TideGenericMenu<TideDonations> {
         menuBuilder.registerItem(this.communityGoalItem.getSlot(), this.communityGoalItem.getItem().parse(replacer));
         menuBuilder.registerItem(this.personalGoalItem.getSlot(), this.personalGoalItem.getItem().parse(replacer));
 
-        menuBuilder.registerPlayerInventoryClickEvent(this.communityGoalItem.getSlot(), event -> {
+        menuBuilder.registerClickEvent(this.communityGoalItem.getSlot(), event -> {
             new DonationGoalMenu(this.module, DonationGoalType.COMMUNITY).open(player, 0);
         });
 
-        menuBuilder.registerPlayerInventoryClickEvent(this.personalGoalItem.getSlot(), event -> {
+        menuBuilder.registerClickEvent(this.personalGoalItem.getSlot(), event -> {
             new DonationGoalMenu(this.module, DonationGoalType.PERSONAL).open(player, 0);
         });
 

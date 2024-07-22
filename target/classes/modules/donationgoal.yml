@@ -128,6 +128,27 @@ command:
     - "donogoal"
     - "tidedonationgoal"
 
+messages:
+  "not-enough-progress-personal":
+    message:
+      enabled: true
+      value:
+        - "&c&lTech&4&lTide &f&l→ &7To reach this donation goal, you need to donate &f%needed%.00 &7more!"
+  "not-enough-progress-community":
+    message:
+      enabled: true
+      value:
+        - "&c&lTech&4&lTide &f&l→ &7To reach this donation goal, the community needs to donate &f%needed%.00 &7more!"
+  "claimed-reward":
+    message:
+      enabled: true
+      value:
+        - "&a&lTech&2&lTide &f&l→ &7You have successfully claimed the &a%goal-name% &7reward! &8(&7%type% Reward&8)"
+  "already-claimed-reward":
+    message:
+      enabled: true
+      value:
+        - "&c&lTech&4&lTide &f&l→ &7You have already claimed the &c%goal-name% &7reward!"
 menus:
   category-menu:
     title: "&8&nDonation&r &8&nGoals"
@@ -206,7 +227,7 @@ menus:
           - "&7- &c&lRequired: &f%required-amount%"
           - "&7"
       current-page:
-        slot: 29
+        slot: 31
         material: "COMPASS"
         name: "&8&lCurrent &7&lPage &8(&f%page%&8)"
         lore:
@@ -226,7 +247,84 @@ menus:
           - "&7- &8&lPage: &f%page%"
           - "&7"
       previous-page:
+        slot: 29
+        material: "TIPPED_ARROW"
+        potion-type: "INSTANT_HEAL"
+        hide-flags: true
+        name: "&8&lPrevious &7&lPage &8(&f%page%&8)"
+        lore:
+          - "&8Informational Item"
+          - "&7"
+          - "&8&lINFORMATION:"
+          - "&7- &8&lPage: &f%page%"
+          - "&7"
+  personal-donation-menu:
+    title: "&8&nPersonal&r &8&nDonation&r &8&nGoals"
+    rows: 5
+    reward-slots: [10, 12, 14, 16]
+    borders:
+      "gray":
+        material: "BLACK_STAINED_GLASS_PANE"
+        name: " "
+        lore: []
+        slots:
+          - "0-44"
+    items:
+      claimed:
+        material: "LIME_STAINED_GLASS_PANE"
+        name: "&a&lClaimed &2&lReward"
+        lore:
+          - "&8Informational Item"
+          - "&7"
+          - "&a&lINFORMATION:"
+          - "&7- &a&lTier: &f%goal-name%"
+          - "&7- &a&lReward: &f%reward%"
+          - "&7- &a&lRequired: &f%required-amount%"
+          - "&7"
+      claimable:
+        material: "ORANGE_STAINED_GLASS_PANE"
+        name: "&6&lClaim &e&lReward"
+        lore:
+          - "&8Informational Item"
+          - "&7"
+          - "&6&lINFORMATION:"
+          - "&7- &6&lTier: &f%goal-name%"
+          - "&7- &6&lReward: &f%reward%"
+          - "&7- &6&lRequired: &f%required-amount%"
+          - "&7"
+      locked:
+        material: "RED_STAINED_GLASS_PANE"
+        name: "&c&lLocked &4&lTier"
+        lore:
+          - "&8Informational Item"
+          - "&7"
+          - "&c&lINFORMATION:"
+          - "&7- &c&lTier: &f%goal-name%"
+          - "&7- &c&lReward: &f%reward%"
+          - "&7- &c&lRequired: &f%required-amount%"
+          - "&7"
+      current-page:
         slot: 31
+        material: "COMPASS"
+        name: "&8&lCurrent &7&lPage &8(&f%page%&8)"
+        lore:
+          - "&8Informational Item"
+          - "&7"
+          - "&8&lINFORMATION:"
+          - "&7- &8&lPage: &f%page%"
+          - "&7"
+      next-page:
+        slot: 33
+        material: "SPECTRAL_ARROW"
+        name: "&8&lNext &7&lPage &8(&f%page%&8)"
+        lore:
+          - "&8Informational Item"
+          - "&7"
+          - "&8&lINFORMATION:"
+          - "&7- &8&lPage: &f%page%"
+          - "&7"
+      previous-page:
+        slot: 29
         material: "TIPPED_ARROW"
         potion-type: "INSTANT_HEAL"
         hide-flags: true

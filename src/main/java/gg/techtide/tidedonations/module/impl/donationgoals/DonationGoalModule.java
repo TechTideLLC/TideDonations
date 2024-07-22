@@ -11,6 +11,7 @@ import gg.techtide.tidedonations.module.template.DefaultDonationModule;
 import gg.techtide.tidelib.logger.TideLogger;
 import gg.techtide.tidelib.patterns.registry.Registry;
 import gg.techtide.tidelib.revamped.abysslibrary.command.TideCommand;
+import gg.techtide.tidelib.revamped.abysslibrary.text.message.cache.MessageCache;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 
@@ -23,6 +24,8 @@ public class DonationGoalModule extends DefaultDonationModule {
 
     private final TideCommand<TideDonations, Player> donationGoalCommand = new DonationGoalCommand(this);
 
+    private final MessageCache messageCache;
+
     public DonationGoalModule(TideDonations plugin) {
         super(plugin, "donationgoal");
 
@@ -30,10 +33,13 @@ public class DonationGoalModule extends DefaultDonationModule {
 
         this.communityGoalRegistry = new GoalRegistry();
         this.personalGoalRegistry = new GoalRegistry();
+
+        this.messageCache = new MessageCache(this.getConfig());
     }
 
     @Override
     public void onLoad() {
+        this.loadMessages(this.messageCache, this.getConfig());
 
         this.loadGoals();
         this.registerCommands();

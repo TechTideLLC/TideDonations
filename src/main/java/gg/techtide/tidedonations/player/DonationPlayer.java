@@ -23,7 +23,8 @@ public class DonationPlayer {
     private final UUID uuid;
     private int amountDonated;
     private String style;
-    private List<String> claimedPersonalGoals, claimedCommunityGoals = new LinkedList<>();
+    private List<String> claimedPersonalGoals = new LinkedList<>();
+    private List<String> claimedCommunityGoals = new LinkedList<>();
 
     private transient boolean loaded = false;
 

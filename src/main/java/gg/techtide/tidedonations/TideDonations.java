@@ -54,11 +54,6 @@ public final class TideDonations extends TidePlugin {
         this.loadDefaultModules();
 
         TideDonations.api = new TideDonationAPI(this);
-
-        // TODO: Impl this to lib. Temp fix for now.
-
-        new MenuClickListener();
-        new MenuCloseListener();
     }
 
     @Override

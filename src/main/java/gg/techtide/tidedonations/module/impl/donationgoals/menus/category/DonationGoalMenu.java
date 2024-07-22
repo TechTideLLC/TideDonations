@@ -13,6 +13,7 @@ import gg.techtide.tidelib.revamped.abysslibrary.menu.TideInventory;
 import gg.techtide.tidelib.revamped.abysslibrary.menu.item.MenuItemBuilder;
 import gg.techtide.tidelib.revamped.abysslibrary.menu.templates.TidePageMenu;
 import gg.techtide.tidelib.revamped.abysslibrary.utils.Utils;
+import gg.techtide.tidelib.revamped.abysslibrary.utils.WordUtils;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -61,14 +62,14 @@ public class DonationGoalMenu extends TidePageMenu<TideDonations> {
         menuBuilder.registerItem(this.previousPageItem.getSlot(), this.previousPageItem.getItem().parse(replacer));
 
         menuBuilder.registerItem(this.previousPageItem.getSlot(), this.previousPageItem.getItem().parse(replacer));
-        menuBuilder.registerPlayerInventoryClickEvent(this.previousPageItem.getSlot(), event -> {
+        menuBuilder.registerClickEvent(this.previousPageItem.getSlot(), event -> {
             if (page - 1 > -1) {
                 this.open(player, page - 1);
             }
         });
 
         menuBuilder.registerItem(this.nextPageItem.getSlot(), this.nextPageItem.getItem().parse(replacer));
-        menuBuilder.registerPlayerInventoryClickEvent(this.nextPageItem.getSlot(), event -> {
+        menuBuilder.registerClickEvent(this.nextPageItem.getSlot(), event -> {
             if (pageBuilder.hasPage(page + 1)) {
                 this.open(player, page + 1);
             }
@@ -92,11 +93,24 @@ public class DonationGoalMenu extends TidePageMenu<TideDonations> {
 
             index++;
 
-            menuBuilder.registerPlayerInventoryClickEvent(slot, event -> {
+            menuBuilder.registerClickEvent(slot, event -> {
 
-                if (hasClaimed) return;
-                if (!hasRequiredAmount) return;
+                final PlaceholderReplacer donationPlaceholder = new PlaceholderReplacer()
+                        .addPlaceholder("%goal-name%", donationGoal.getGoalName())
+                        .addPlaceholder("%reward%", donationGoal.getRewards())
+                        .addPlaceholder("%type%", WordUtils.formatText(this.type.name()))
+                        .addPlaceholder("%needed%", Utils.format(donationGoal.getRequiredAmount() - this.getAmountDonated(this.type, player)));
 
+                if (hasClaimed) {
+                    this.module.getMessageCache().sendMessage(player, "messages.already-claimed-reward", donationPlaceholder);
+                    return;
+                }
+                if (!hasRequiredAmount) {
+                    this.module.getMessageCache().sendMessage(player, "messages.not-enough-progress-" + this.type.name().toLowerCase(), donationPlaceholder);
+                    return;
+                }
+
+                this.module.getMessageCache().sendMessage(player, "messages.claimed-reward", donationPlaceholder);
                 donationGoal.claim(player);
 
                 this.open(player, page);
@@ -144,6 +158,17 @@ public class DonationGoalMenu extends TidePageMenu<TideDonations> {
         goals.sort(Comparator.comparingDouble(DefaultDonationGoal::getRequiredAmount));
 
         return goals;
+    }
+
+    public long getAmountDonated(final DonationGoalType type, final Player player) {
+        switch (type) {
+            case COMMUNITY:
+                return this.module.getCurrentBalanceDonated();
+            case PERSONAL:
+                return this.module.getProfile(player.getUniqueId()).getAmountDonated();
+            default:
+                return 0;
+        }
     }
 
     public boolean hasRequiredAmount(final DonationGoal goal, final DonationPlayer player, final DonationGoalType type) {

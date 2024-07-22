@@ -42,8 +42,6 @@ public class DonationGoalCommand extends TideCommand<TideDonations, Player> {
     @Override
     public void execute(CommandContext<Player> commandContext) {
 
-        //this.menu.open(commandContext.getSender());
-
-        new DonationGoalMenu(this.module, DonationGoalType.COMMUNITY).open(commandContext.getSender(), 0);
+        this.menu.open(commandContext.getSender());
     }
 }
