@@ -11,6 +11,8 @@ import gg.techtide.tidedonations.player.storage.PlayerJsonStorage;
 import gg.techtide.tidedonations.player.storage.PlayerSQLStorage;
 import gg.techtide.tidelib.patterns.registry.Registry;
 import gg.techtide.tidelib.revamped.abysslibrary.config.TideConfig;
+import gg.techtide.tidelib.revamped.abysslibrary.menu.listeners.MenuClickListener;
+import gg.techtide.tidelib.revamped.abysslibrary.menu.listeners.MenuCloseListener;
 import gg.techtide.tidelib.revamped.abysslibrary.plugin.TidePlugin;
 import gg.techtide.tidelib.revamped.abysslibrary.storage.common.CommonStorageImpl;
 import gg.techtide.tidelib.revamped.abysslibrary.storage.type.StorageType;
@@ -22,12 +24,6 @@ import lombok.Getter;
  * @author TechTide
  * @since 1.0.0
  */
-
-//TODO:
-// 1. Create Styles method
-// 2. Track donation amount (If Possible)
-// 3. Create a menu to check donation shit
-// 4. Make donation goal rewards (Public & Personal)
 
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -58,6 +54,11 @@ public final class TideDonations extends TidePlugin {
         this.loadDefaultModules();
 
         TideDonations.api = new TideDonationAPI(this);
+
+        // TODO: Impl this to lib. Temp fix for now.
+
+        new MenuClickListener();
+        new MenuCloseListener();
     }
 
     @Override

@@ -5,6 +5,8 @@ import gg.techtide.tidedonations.module.impl.ggwave.style.GGWaveStyle;
 import gg.techtide.tidelib.revamped.abysslibrary.storage.id.Id;
 import lombok.Data;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,6 +23,7 @@ public class DonationPlayer {
     private final UUID uuid;
     private int amountDonated;
     private String style;
+    private List<String> claimedPersonalGoals, claimedCommunityGoals = new LinkedList<>();
 
     private transient boolean loaded = false;
 
@@ -30,6 +33,14 @@ public class DonationPlayer {
         }
 
         this.loaded = true;
+    }
+
+    public void addClaimedPersonalGoal(final String goal) {
+        this.claimedPersonalGoals.add(goal);
+    }
+
+    public void addClaimedCommunityGoal(final String goal) {
+        this.claimedCommunityGoals.add(goal);
     }
 
 }

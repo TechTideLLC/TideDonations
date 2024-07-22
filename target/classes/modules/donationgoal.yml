@@ -206,7 +206,7 @@ menus:
           - "&7- &c&lRequired: &f%required-amount%"
           - "&7"
       current-page:
-        slot: 31
+        slot: 29
         material: "COMPASS"
         name: "&8&lCurrent &7&lPage &8(&f%page%&8)"
         lore:
@@ -226,7 +226,7 @@ menus:
           - "&7- &8&lPage: &f%page%"
           - "&7"
       previous-page:
-        slot: 29
+        slot: 31
         material: "TIPPED_ARROW"
         potion-type: "INSTANT_HEAL"
         hide-flags: true

@@ -1,11 +1,13 @@
 package gg.techtide.tidedonations.module;
 
 import gg.techtide.tidedonations.TideDonations;
+import gg.techtide.tidedonations.player.DonationPlayer;
 import gg.techtide.tidelib.revamped.abysslibrary.config.TideConfig;
 import gg.techtide.tidelib.revamped.abysslibrary.text.message.cache.MessageCache;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Iterator;
+import java.util.UUID;
 
 /**
  * The class to implement modules for the donation plugin.
@@ -32,5 +34,9 @@ public interface DonationModule {
         config.getConfigurationSection("messages").getKeys(false).forEach(key -> {
             cache.loadMessage("messages." + key);
         });
+    }
+
+    default DonationPlayer getProfile(final UUID uuid) {
+        return this.getPlugin().getStorage().get(uuid);
     }
 }
