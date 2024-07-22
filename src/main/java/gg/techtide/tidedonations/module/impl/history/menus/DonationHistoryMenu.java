@@ -12,6 +12,8 @@ import gg.techtide.tidelib.revamped.abysslibrary.menu.item.MenuItemBuilder;
 import gg.techtide.tidelib.revamped.abysslibrary.menu.templates.TidePageMenu;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,7 +30,7 @@ public class DonationHistoryMenu extends TidePageMenu<TideDonations> {
     private final ItemBuilder historyItem;
     private final MenuItemBuilder currentPageItem, nextPageItem, previousPageItem;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d['st']['nd']['rd']['th'], yyyy hh:mm a");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a");
 
     public DonationHistoryMenu(final HistoryModule module) {
         super(module.getPlugin(), module.getConfig(), "menu.");
@@ -97,9 +99,17 @@ public class DonationHistoryMenu extends TidePageMenu<TideDonations> {
 
         sortedList.sort((d1, d2) -> {
             try {
-                ZonedDateTime date1 = ZonedDateTime.parse(d1.getTimestamp(), formatter);
-                ZonedDateTime date2 = ZonedDateTime.parse(d2.getTimestamp(), formatter);
-                return date2.compareTo(date1);
+                String timestamp1 = removeSuffix(d1.getTimestamp());
+                String timestamp2 = removeSuffix(d2.getTimestamp());
+
+                LocalDateTime dateTime1 = LocalDateTime.parse(timestamp1, formatter);
+                LocalDateTime dateTime2 = LocalDateTime.parse(timestamp2, formatter);
+
+                ZoneId zoneId = ZoneId.of(this.module.getTimezone());
+                ZonedDateTime zonedDateTime1 = dateTime1.atZone(zoneId);
+                ZonedDateTime zonedDateTime2 = dateTime2.atZone(zoneId);
+
+                return zonedDateTime2.compareTo(zonedDateTime1);
             } catch (DateTimeParseException e) {
                 e.printStackTrace();
                 return 0;
@@ -107,5 +117,9 @@ public class DonationHistoryMenu extends TidePageMenu<TideDonations> {
         });
 
         return sortedList;
+    }
+
+    private String removeSuffix(String timestamp) {
+        return timestamp.replaceAll("(\\d+)(st|nd|rd|th)", "$1");
     }
 }
