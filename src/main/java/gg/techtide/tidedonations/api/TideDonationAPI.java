@@ -2,9 +2,10 @@ package gg.techtide.tidedonations.api;
 
 import gg.techtide.tidedonations.TideDonations;
 import gg.techtide.tidedonations.module.DonationModule;
+import gg.techtide.tidedonations.module.impl.ggwave.GGWaveModule;
+import gg.techtide.tidedonations.module.impl.ggwave.style.GGWaveStyle;
 import gg.techtide.tidedonations.player.DonationPlayer;
 
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -28,7 +29,7 @@ public class TideDonationAPI {
      * @param module The module to register
      */
     public void registerModule(final DonationModule module) {
-
+        this.plugin.getModuleRegistry().register(module.getName(), module);
     }
 
     /**
@@ -40,5 +41,36 @@ public class TideDonationAPI {
 
     public DonationPlayer getProfile(final UUID playerUUID) {
         return this.plugin.getStorage().get(playerUUID);
+    }
+
+    /**
+     * Saves a player profile to the storage
+     * @param player The player's profile to save
+     */
+
+    public void saveProfile(final DonationPlayer player) {
+        this.plugin.getStorage().save(player);
+    }
+
+    /**
+     * Gets a module from the plugin
+     * @param name The name of the module
+     * @return The module if it exists, otherwise null
+     */
+
+    public DonationModule getDonationModule(final String name) {
+        return this.plugin.getModuleRegistry().get(name).orElse(null);
+    }
+
+    /**
+     * Registers a style with the ggwave module
+     * @param style The style to register
+     */
+
+    public void registerStyle(final GGWaveStyle style) {
+
+        final GGWaveModule module = (GGWaveModule) this.plugin.getModuleRegistry().get("ggwave").get();
+
+        module.getStyleRegistry().register(style.getName(), style);
     }
 }

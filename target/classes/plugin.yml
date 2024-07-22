@@ -1,0 +1,6 @@
+name: TideDonations
+version: '1.0.0'
+main: gg.techtide.tidedonations.TideDonations
+api-version: '1.13'
+softdepend:
+  - TideCosmetics
