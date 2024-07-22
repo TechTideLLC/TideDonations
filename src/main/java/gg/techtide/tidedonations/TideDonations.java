@@ -6,6 +6,7 @@ import gg.techtide.tidedonations.module.DonationModule;
 import gg.techtide.tidedonations.module.impl.donationeffects.DonationEffectsModule;
 import gg.techtide.tidedonations.module.impl.donationgoals.DonationGoalModule;
 import gg.techtide.tidedonations.module.impl.ggwave.GGWaveModule;
+import gg.techtide.tidedonations.module.impl.history.HistoryModule;
 import gg.techtide.tidedonations.module.registry.ModuleRegistry;
 import gg.techtide.tidedonations.player.DonationPlayer;
 import gg.techtide.tidedonations.player.storage.PlayerJsonStorage;
@@ -60,6 +61,8 @@ public final class TideDonations extends TidePlugin {
     @Override
     public void onDisable() {
         this.storage.write();
+
+        this.moduleRegistry.values().forEach(DonationModule::onDisable);
     }
 
     private void loadStorage() {
@@ -84,7 +87,8 @@ public final class TideDonations extends TidePlugin {
         Stream.of(
                 new GGWaveModule(this),
                 new DonationGoalModule(this),
-                new DonationEffectsModule(this)
+                new DonationEffectsModule(this),
+                new HistoryModule(this)
         ).filter(DonationModule::isEnabled).forEach(module -> {
             module.onLoad();
             this.moduleRegistry.register(module.getName(), module);
