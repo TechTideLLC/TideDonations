@@ -6,6 +6,11 @@ styles:
     - "&a&lGG"
     - "&c&lGG"
 
+reward:
+  enabled: true
+  value:
+    - "exp give %player% 100"
+
 command:
   base-command-name: "ggwave"
   aliases:

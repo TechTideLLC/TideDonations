@@ -1,0 +1,8 @@
+goals:
+  personal:
+    "big-spender":
+      name: "Big Spender"
+      description: "Donate $1000 or more"
+      goal: 1000
+      commands:
+        - "exp give %player% 100"

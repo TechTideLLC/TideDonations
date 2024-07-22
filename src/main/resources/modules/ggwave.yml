@@ -9,7 +9,7 @@ styles:
 reward:
   enabled: true
   value:
-    - "eco give %player% 100"
+    - "exp give %player% 100"
 
 command:
   base-command-name: "ggwave"

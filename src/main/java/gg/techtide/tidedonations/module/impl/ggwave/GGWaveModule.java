@@ -87,7 +87,7 @@ public class GGWaveModule extends DefaultDonationModule {
 
         switch (this.styleProvider) {
             case COSMETICS:
-                TideLogger.log(Level.ALL, "TideCosmetics found! Loading the GGWave styles from TideCosmetics");
+                TideLogger.console("TideCosmetics found! Loading the GGWave styles from TideCosmetics");
 
                 // TODO: Add the TideCosmetics implementation
 

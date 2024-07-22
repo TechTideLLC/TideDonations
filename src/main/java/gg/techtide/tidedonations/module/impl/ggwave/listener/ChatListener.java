@@ -5,6 +5,7 @@ import gg.techtide.tidedonations.module.impl.ggwave.event.GGWaveMessageEvent;
 import gg.techtide.tidedonations.module.impl.ggwave.style.GGWaveStyle;
 import gg.techtide.tidedonations.module.listener.ModuleListener;
 import gg.techtide.tidedonations.player.DonationPlayer;
+import gg.techtide.tidelib.revamped.abysslibrary.scheduler.impl.SyncScheduler;
 import gg.techtide.tidelib.revamped.abysslibrary.utils.PlayerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +23,7 @@ public class ChatListener extends ModuleListener<GGWaveModule> {
         super(module.getPlugin(), module);
 
         this.rewardEnabled = module.getConfig().getBoolean("reward.enabled");
-        this.commands = module.getConfig().getStringList("reward.commands");
+        this.commands = module.getConfig().getStringList("reward.value");
     }
 
     @EventHandler
@@ -42,13 +43,18 @@ public class ChatListener extends ModuleListener<GGWaveModule> {
         GGWaveStyle style = this.getModule().getStyleRegistry().get(donationPlayer.getStyle()).orElse(this.getModule().getDefaultStyle());
 
         GGWaveMessageEvent messageEvent = new GGWaveMessageEvent(player, false, style);
-        this.plugin.getServer().getPluginManager().callEvent(messageEvent);
+
+        new SyncScheduler().run(() -> {
+            plugin.getServer().getPluginManager().callEvent(messageEvent);
+
+
+            if (this.rewardEnabled && !this.getModule().getRewardedPlayers().contains(player.getUniqueId())) {
+                PlayerUtils.dispatchCommands(player, this.commands);
+                this.getModule().getRewardedPlayers().add(player.getUniqueId());
+
+            }
+        });
 
         event.setMessage(messageEvent.getStyle().getPotentialOptions().get(ThreadLocalRandom.current().nextInt(messageEvent.getStyle().getPotentialOptions().size())));
-
-        if (this.rewardEnabled && !this.getModule().getRewardedPlayers().contains(player.getUniqueId())) {
-            this.getModule().getRewardedPlayers().add(player.getUniqueId());
-            PlayerUtils.dispatchCommands(player, this.commands);
-        }
     }
 }
