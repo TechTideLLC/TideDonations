@@ -19,12 +19,14 @@ gg\techtide\tidedonations\module\impl\ggwave\style\registry\StyleRegistry.class
 gg\techtide\tidedonations\module\impl\ggwave\listener\ChatListener.class
 gg\techtide\tidedonations\module\DonationModule.class
 gg\techtide\tidedonations\module\impl\ggwave\event\GGWaveEndEvent.class
+gg\techtide\tidedonations\module\impl\donationeffects\DonationEffectsModule.class
 gg\techtide\tidedonations\module\impl\donationgoals\menus\category\DonationGoalMenu$1.class
 gg\techtide\tidedonations\module\impl\donationgoals\goal\template\DefaultDonationGoal$1.class
 gg\techtide\tidedonations\module\impl\donationgoals\menus\category\DonationGoalMenu.class
 gg\techtide\tidedonations\module\impl\ggwave\style\provider\StyleProvider.class
 gg\techtide\tidedonations\module\impl\donationgoals\DonationGoalModule.class
 gg\techtide\tidedonations\module\impl\ggwave\style\builder\StyleBuilder.class
+gg\techtide\tidedonations\module\impl\donationeffects\listener\DonateListener.class
 gg\techtide\tidedonations\module\impl\ggwave\GGWaveModule$1.class
 gg\techtide\tidedonations\module\impl\donationgoals\listener\DonationListener.class
 gg\techtide\tidedonations\module\listener\ModuleListener.class

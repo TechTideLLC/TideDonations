@@ -3,6 +3,7 @@ package gg.techtide.tidedonations;
 import gg.techtide.tidedonations.api.TideDonationAPI;
 import gg.techtide.tidedonations.listeners.StorageJoinLeaveListener;
 import gg.techtide.tidedonations.module.DonationModule;
+import gg.techtide.tidedonations.module.impl.donationeffects.DonationEffectsModule;
 import gg.techtide.tidedonations.module.impl.donationgoals.DonationGoalModule;
 import gg.techtide.tidedonations.module.impl.ggwave.GGWaveModule;
 import gg.techtide.tidedonations.module.registry.ModuleRegistry;
@@ -82,7 +83,8 @@ public final class TideDonations extends TidePlugin {
     private void loadDefaultModules()  {
         Stream.of(
                 new GGWaveModule(this),
-                new DonationGoalModule(this)
+                new DonationGoalModule(this),
+                new DonationEffectsModule(this)
         ).filter(DonationModule::isEnabled).forEach(module -> {
             module.onLoad();
             this.moduleRegistry.register(module.getName(), module);
