@@ -1,0 +1,8 @@
+hooks:
+  ggwave: true
+  donate: true
+
+duration: 10
+
+effects:
+  - "JUMP;3"
