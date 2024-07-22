@@ -1,0 +1,5 @@
+styles:
+  style: "DEFAULT" # If no Style is selected via TideCosmetics, or plugin is not enabled.
+  default-ggwave-list:
+    - "&a&lGG"
+    - "&c&lGG"
