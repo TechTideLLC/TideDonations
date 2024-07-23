@@ -1,0 +1,82 @@
+command:
+  base-command-name: "donate"
+  aliases:
+    - "donation"
+    - "tidaldonate"
+  sub-commands:
+    "start":
+      base-alias: "start"
+      aliases:
+        - "create"
+      not-enough-args:
+        sound:
+          enabled: true
+          value: "FIZZ"
+          volume: 1
+          pitch: 1
+        message:
+          enabled: true
+          value:
+            - "&c&lTech&4&lTide &f&l→ &7Invalid arguments! Proper usage: &c/donate start <player> <amount> {info}"
+
+messages:
+  "no-permission":
+    sound:
+      enabled: true
+      value: "FIZZ"
+      volume: 1
+      pitch: 1
+    message:
+      enabled: true
+      value:
+        - "&c&lTech&4&lTide &f&l→ &7You do not have &cpermission &7to execute this command."
+  "admin-help":
+    sound:
+      enabled: true
+      value: "BLOCK_NOTE_PLING"
+      volume: 1
+      pitch: 1
+    message:
+      enabled: true
+      value:
+        - "&b&lDonate &f&l→ &7To start a donate notification, use the following command:"
+        - "&b/donate start &e<player> <amount> &d<info>"
+        - "&7Example: &b/donate start &eTechTide 10 &dGod Set!"
+        - "&7This will start a donation announcement for the specified player with the provided info."
+  "invalid-player":
+    sound:
+      enabled: true
+      value: "FIZZ"
+      volume: 1
+      pitch: 1
+    message:
+      enabled: true
+      value:
+        - "&c&lTech&4&lTide &f&l→ &7You have specified a(n) &cinvalid player&7."
+  "invalid-amount":
+    sound:
+      enabled: true
+      value: "FIZZ"
+      volume: 1
+      pitch: 1
+    message:
+      enabled: true
+      value:
+        - "&c&lTech&4&lTide &f&l→ &7You have specified a(n) &cinvalid amount&7."
+  "donate":
+    sound:
+      enabled: true
+      value: "ORB_PICKUP"
+      volume: 1
+      pitch: 1
+    message:
+      enabled: true
+      value:
+        - "&3&m--------------------------------"
+        - " "
+        - "&b&l   Donation!"
+        - " "
+        - "&7&o  Congratulate &b&o%player%"
+        - "&7&o for purchasing &b&o%package% for &b&o$%amount%&7&o!"
+        - " "
+        - "&3&m--------------------------------"

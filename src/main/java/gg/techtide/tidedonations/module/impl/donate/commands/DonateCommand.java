@@ -1,15 +1,16 @@
-package gg.techtide.tidedonations.module.impl.ggwave.commands;
+package gg.techtide.tidedonations.module.impl.donate.commands;
 
 import gg.techtide.tidedonations.TideDonations;
+import gg.techtide.tidedonations.module.impl.donate.DonateModule;
+import gg.techtide.tidedonations.module.impl.donate.commands.sub.DonateStartCommand;
 import gg.techtide.tidedonations.module.impl.ggwave.GGWaveModule;
-import gg.techtide.tidedonations.module.impl.ggwave.commands.sub.GGWaveStartCommand;
 import gg.techtide.tidelib.logger.TideLogger;
 import gg.techtide.tidelib.revamped.abysslibrary.command.TideCommand;
 import gg.techtide.tidelib.revamped.abysslibrary.command.context.CommandContext;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class GGWaveCommand extends TideCommand<TideDonations, CommandSender> {
+public class DonateCommand extends TideCommand<TideDonations, CommandSender> {
 
     /**
      * Constructs a new DonateCommand
@@ -18,16 +19,16 @@ public class GGWaveCommand extends TideCommand<TideDonations, CommandSender> {
      *
      */
 
-    private final GGWaveModule module;
+    private final DonateModule module;
 
-    public GGWaveCommand(final GGWaveModule module) {
+    public DonateCommand(final DonateModule module) {
         super(
                 module.getPlugin(),
                 module.getConfig().getCommandSettings("command"),
                 CommandSender.class
         );
 
-        this.register(new GGWaveStartCommand(this, module));
+        this.register(new DonateStartCommand(this, module));
 
         this.ignoreSubCommands(true);
 
@@ -43,7 +44,7 @@ public class GGWaveCommand extends TideCommand<TideDonations, CommandSender> {
 
         final CommandSender sender = context.getSender();
 
-        if (!sender.hasPermission("tidedonations.ggwave")) {
+        if (!sender.hasPermission("tidedonations.donate")) {
             this.module.getMessageCache().getMessage("messages.no-permission").send(sender);
             return;
         }

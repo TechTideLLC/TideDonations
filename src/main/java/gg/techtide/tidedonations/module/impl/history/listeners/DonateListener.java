@@ -1,6 +1,6 @@
 package gg.techtide.tidedonations.module.impl.history.listeners;
 
-import gg.techtide.tidedonations.TideDonations;
+import gg.techtide.tidedonations.module.impl.donate.event.DonateStartEvent;
 import gg.techtide.tidedonations.module.impl.ggwave.event.GGWaveStartEvent;
 import gg.techtide.tidedonations.module.impl.history.HistoryModule;
 import gg.techtide.tidedonations.module.impl.history.player.HistoryPlayer;
@@ -16,10 +16,18 @@ public class DonateListener extends ModuleListener<HistoryModule> {
     }
 
     @EventHandler
-    public void onDonate(final GGWaveStartEvent event) {
-        final Player player = event.getPlayer();
+    public void onGGWave(final GGWaveStartEvent ggWaveEvent) {
+        final Player player = ggWaveEvent.getPlayer();
         final HistoryPlayer profile = this.getModule().getStorage().get(player.getUniqueId());
 
-        profile.addHistory(DonationHistoryWrapper.build(event, this.getModule()));
+        profile.addHistory(DonationHistoryWrapper.build(ggWaveEvent, this.getModule()));
+    }
+
+    @EventHandler
+    public void onDonate(final DonateStartEvent donateEvent) {
+        final Player player = donateEvent.getPlayer();
+        final HistoryPlayer profile = this.getModule().getStorage().get(player.getUniqueId());
+
+        profile.addHistory(DonationHistoryWrapper.build(donateEvent, this.getModule()));
     }
 }

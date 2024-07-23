@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
 public class DonationGoalCommand extends TideCommand<TideDonations, Player> {
 
     /**
-     * Constructs a new GGWaveCommand
+     * Constructs a new DonateCommand
      *
      * @param module The GGWave module
      *

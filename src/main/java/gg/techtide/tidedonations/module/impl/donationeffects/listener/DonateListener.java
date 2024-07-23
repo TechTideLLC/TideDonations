@@ -1,5 +1,6 @@
 package gg.techtide.tidedonations.module.impl.donationeffects.listener;
 
+import gg.techtide.tidedonations.module.impl.donate.event.DonateStartEvent;
 import gg.techtide.tidedonations.module.impl.donationeffects.DonationEffectsModule;
 import gg.techtide.tidedonations.module.impl.ggwave.event.GGWaveStartEvent;
 import gg.techtide.tidedonations.module.listener.ModuleListener;
@@ -28,6 +29,13 @@ public class DonateListener extends ModuleListener<DonationEffectsModule> {
     @EventHandler
     public void onGGWaveStart(GGWaveStartEvent event) {
         if (this.getModule().isGgWaveEnabled()) {
+            this.applyEffects();
+        }
+    }
+
+    @EventHandler
+    public void onDonate(final DonateStartEvent donateEvent) {
+        if (this.getModule().isDonateEnabled()) {
             this.applyEffects();
         }
     }

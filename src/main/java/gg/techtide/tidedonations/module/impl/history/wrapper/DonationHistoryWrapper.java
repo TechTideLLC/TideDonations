@@ -1,5 +1,6 @@
 package gg.techtide.tidedonations.module.impl.history.wrapper;
 
+import gg.techtide.tidedonations.module.impl.donate.event.DonateStartEvent;
 import gg.techtide.tidedonations.module.impl.ggwave.event.GGWaveStartEvent;
 import gg.techtide.tidedonations.module.impl.history.HistoryModule;
 import lombok.Data;
@@ -33,6 +34,20 @@ public class DonationHistoryWrapper {
     }
 
     public static DonationHistoryWrapper build(final GGWaveStartEvent event, final HistoryModule module) {
+        ZonedDateTime currentTimestamp = ZonedDateTime.now(ZoneId.of(module.getTimezone()));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+
+        String dayOfMonth = currentTimestamp.format(DateTimeFormatter.ofPattern("d"));
+        String dayOfMonthSuffix = getDayOfMonthSuffix(Integer.parseInt(dayOfMonth));
+        String formattedDate = currentTimestamp.format(dateFormatter) + dayOfMonthSuffix + ", " + currentTimestamp.getYear();
+        String formattedTime = currentTimestamp.format(timeFormatter);
+
+        String formattedTimestamp = formattedDate + " " + formattedTime;
+        return new DonationHistoryWrapper(formattedTimestamp, event.getInfo(), event.getAmount());
+    }
+
+    public static DonationHistoryWrapper build(final DonateStartEvent event, final HistoryModule module) {
         ZonedDateTime currentTimestamp = ZonedDateTime.now(ZoneId.of(module.getTimezone()));
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");

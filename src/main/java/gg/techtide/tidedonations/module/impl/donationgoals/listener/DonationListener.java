@@ -1,5 +1,6 @@
 package gg.techtide.tidedonations.module.impl.donationgoals.listener;
 
+import gg.techtide.tidedonations.module.impl.donate.event.DonateStartEvent;
 import gg.techtide.tidedonations.module.impl.donationgoals.DonationGoalModule;
 import gg.techtide.tidedonations.module.impl.ggwave.event.GGWaveStartEvent;
 import gg.techtide.tidedonations.module.listener.ModuleListener;
@@ -15,6 +16,12 @@ public class DonationListener extends ModuleListener<DonationGoalModule> {
     @EventHandler
     public void onGGWaveStart(final GGWaveStartEvent event) {
         final int amount = event.getAmount();
+        this.getModule().addDonation(amount);
+    }
+
+    @EventHandler
+    public void onDonate(final DonateStartEvent donateEvent) {
+        final int amount = donateEvent.getAmount();
         this.getModule().addDonation(amount);
     }
 }
